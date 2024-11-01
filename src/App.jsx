@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useSelector, useDispatch } from "react-redux";
+import "./App.css";
+import { increment, decrement, reload, addValue } from "./store/counterSlice";
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useSelector((state) => state.counterValue.count);
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(0);
+
+  function inc() {
+    dispatch(increment());
+  }
+
+  function dec() {
+    dispatch(decrement());
+  }
+
+  function add() {
+    const val = Number(value);
+
+    dispatch(addValue(isNaN(val)?0:val));
+  }
 
   return (
-    <>
+    <div className="container">
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h3>{count}</h3>
+        <button onClick={inc}>INC +</button>
+        <button onClick={dec}>DEC -</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div>
+        <button onClick={() => dispatch(reload())}>RESET -</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <div>
+        <input type="text" value={value}
+          onChange={el => setValue(el.target.value)} />
+        <button onClick={add}>PLUS VALUE</button>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
