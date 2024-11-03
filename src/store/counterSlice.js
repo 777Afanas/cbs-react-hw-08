@@ -29,6 +29,9 @@ export const counterSlice = createSlice({
     divideValue: (state, action) => {
       state.count /= action.payload;
     },
+    expValue: (state, action) => {
+      state.count **= action.payload;
+    },
   },
 });
 export const {
@@ -39,6 +42,7 @@ export const {
   subtractValue,
   multiplyValue,
   divideValue,
+  expValue,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

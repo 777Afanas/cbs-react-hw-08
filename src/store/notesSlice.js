@@ -11,15 +11,12 @@ export const notesSlice = createSlice({
     writeNote: (state, action) => {
       state.note += action.payload;
     },
-    // reset: (state) => {
-    //   state.count = 0;
-    // },
-
-    reset: (state, action) => {
-      state.count = action.payload;
+    clearNotes: (state) => {
+      state.note = [];
     },
   },
 });
-export const { writeNote, reset } = notesSlice.actions;
+
+export const { writeNote, clearNotes } = notesSlice.actions;
 
 export default notesSlice.reducer;
